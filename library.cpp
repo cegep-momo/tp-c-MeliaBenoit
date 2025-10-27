@@ -152,6 +152,54 @@ void Library::displayAllBooks() {
         cout << "Aucun livre dans la bibliothèque.\n";
         return;
     }
+
+    int option;
+    bool running = true;
+    while (running) {
+        cout << "Voulez-vous trier les livres?" << endl;
+        cout << "1. Oui, par titre;" << endl;
+        cout << "2. Oui, par auteur;" << endl;
+        cout << "3. Non." << endl;
+        
+        if (cin >> option) {
+            switch (option) {
+                case 1: {
+                    // Trie par titre
+                    std::sort(books.begin(), books.end(), [](const unique_ptr<Book> &a, const unique_ptr<Book> &b) {
+                        return a->getTitle() < b->getTitle();
+                    });
+                    running = false;
+                    break;
+                }
+
+                case 2: {
+                    // Trie par auteur
+                    std::sort(books.begin(), books.end(), [](const unique_ptr<Book> &a, const unique_ptr<Book> &b) {
+                        return a->getAuthor() < b->getAuthor();
+                    });
+                    running = false;
+                    break;
+                }
+
+                case 3: {
+                    // pas de tri
+                    running = false;
+                    break;
+                }
+
+                default: {
+                    cout << "Option invalide" << endl;
+                    cin.clear();
+                    break;
+                }
+            }
+            
+        } else {
+            cout << "Option invalide. Veuillez entrer un nombre" << endl;
+            cin.clear();
+        }
+    }
+    
     
     cout << "\n=== TOUS LES LIVRES ===\n";
     for (size_t i = 0; i < books.size(); ++i) {
@@ -168,6 +216,53 @@ void Library::displayAvailableBooks() {
     if (available.empty()) {
         cout << "Aucun livre disponible pour emprunt.\n";
         return;
+    }
+
+    int option;
+    bool running = true;
+    while (running) {
+        cout << "Voulez-vous trier les livres?" << endl;
+        cout << "1. Oui, par titre;" << endl;
+        cout << "2. Oui, par auteur;" << endl;
+        cout << "3. Non." << endl;
+        
+        if (cin >> option) {
+            switch (option) {
+                case 1: {
+                    // Trie par titre
+                    std::sort(available.begin(), available.end(), [](const Book *a, const Book *b) {
+                        return a->getTitle() < b->getTitle();
+                    });
+                    running = false;
+                    break;
+                }
+
+                case 2: {
+                    // Trie par auteur
+                    std::sort(available.begin(), available.end(), [](const Book *a, const Book *b) {
+                        return a->getAuthor() < b->getAuthor();
+                    });
+                    running = false;
+                    break;
+                }
+
+                case 3: {
+                    // pas de tri
+                    running = false;
+                    break;
+                }
+
+                default: {
+                    cout << "Option invalide" << endl;
+                    cin.clear();
+                    break;
+                }
+            }
+            
+        } else {
+            cout << "Option invalide. Veuillez entrer un nombre" << endl;
+            cin.clear();
+        }
     }
     
     cout << "\n=== LIVRES DISPONIBLES ===\n";
