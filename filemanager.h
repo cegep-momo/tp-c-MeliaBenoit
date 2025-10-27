@@ -26,6 +26,7 @@ public:
     bool saveUsersToFile(Library& library);
     bool loadBooksFromFile(Library& library);
     bool loadUsersFromFile(Library& library);
+    bool saveLogToFile(Book *book);
     
     // Utility methods
     bool fileExists(const string& filename);

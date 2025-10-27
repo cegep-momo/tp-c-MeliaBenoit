@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <filesystem>
+#include <ctime>
 #include "filemanager.h"
 
 using namespace std;
@@ -100,6 +101,33 @@ bool FileManager::loadUsersFromFile(Library& library) {
     
     file.close();
     cout << "Chargé " << count << " utilisateur(s) depuis le fichier.\n";
+    return true;
+}
+
+// Save a log of who borrowed what and when
+bool FileManager::saveLogToFile(Book *book) {
+    // isbn|borrowerName|time
+    string isbn = book->getISBN();
+    string user = book->getBorrowerName();
+
+    time_t timestamp = time(NULL);
+    struct tm datetime = *localtime(&timestamp);
+    char time[50];
+    strftime(time, 50, "%Y-%m-%d %H:%M:%S", &datetime);
+
+    string line = isbn + "|" + user + "|" + time + "|";
+
+    // Enregistrer dans un fichier LOG
+    string logFileName = "log.txt";
+    ofstream file(logFileName, ios::app);
+    if (!file.is_open()) {
+        cout << "Erreur: Impossible d'ouvrir " << logFileName << " en écriture.\n";
+        return false;
+    }
+
+    file << line;
+    file.close();
+
     return true;
 }
 

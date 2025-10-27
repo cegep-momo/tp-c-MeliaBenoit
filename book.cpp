@@ -74,7 +74,7 @@ string Book::toFileFormat() const {
     if (this->getAvailability()) {
         line += "1|";
     } else {
-        line += "0|" + this->getAuthor();
+        line += "0|" + this->getBorrowerName();
     }
 
     return line;
